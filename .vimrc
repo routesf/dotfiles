@@ -1,6 +1,41 @@
-" Use the Solarized Dark theme
+" routesf  03-23-2015, for  vundle
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'sickill/vim-monokai'
+Plugin 'tpope/vim-fugitive'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+" vundle end
+
+
+" Do not use the Solarized Dark theme
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 let g:solarized_termtrans=1
 
 " Make Vim more useful
@@ -30,7 +65,6 @@ set directory=~/.vim/swaps
 if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
-
 " Don’t create backups when editing files in certain directories
 set backupskip=/tmp/*,/private/tmp/*
 
@@ -75,11 +109,27 @@ set showmode
 set title
 " Show the (partial) command as it’s being typed
 set showcmd
+
 " Use relative line numbers
 if exists("&relativenumber")
 	set relativenumber
 	au BufReadPost * set relativenumber
 endif
+" routesf 03-23-2015, add for relativenumber
+function! NumberToggle()
+	if(&relativenumber == 1)
+		set number
+	else
+		set relativenumber
+	endif
+endfunction
+nnoremap <C-n> : call NumberToggle()<cr>
+au FocusLost * : set number
+au FocusGained * : set relativenumber
+au InsertEnter * : set number
+au InsertLeave * : set relativenumber
+" end
+
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
